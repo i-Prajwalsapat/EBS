@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Generated Bill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generated Bill</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Units Consumed</th>
+                <th>Billing Date</th>
+                <th>Due Date</th>
+                <th>Amount Due</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td th:text="${bill.customer.name}"></td>
+                <td th:text="${bill.unitsConsumed}"></td>
+                <td th:text="${bill.billingDate}"></td>
+                <td th:text="${bill.dueDate}"></td>
+                <td th:text="${bill.amountDue}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button onclick="window.location.href='/admin/customers'">Back to Customer List</button>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        button {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Customer List</h1>
+    <a href="/admin/add-customer">
+        <button>Add New Customer</button>
+    </a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Connection Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="customer : ${customers}">
+                <td th:text="${customer.id}"></td>
+                <td th:text="${customer.name}"></td>
+                <td th:text="${customer.email}"></td>
+                <td th:text="${customer.phone}"></td>
+                <td th:text="${customer.address}"></td>
+                <td th:text="${customer.connectionType}"></td>
+                <td>
+					
+					    <form action="/admin/generate-bill" method="post">
+					        <input type="hidden" name="customerId" th:value="${customer.id}" />
+					        <input type="number" name="unitsConsumed" placeholder="Units Consumed" required />
+					        <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					        <button type="submit">Generate Bill</button>
+					    </form>
+				
+
+                    <form action="/admin/update-customer" method="get" th:action="'/admin/update-customer/' + ${customer.id}" style="display: inline;">
+                        <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button type="submit">Update</button>
+                    </form>
+
+                    <form action="/admin/delete-customer" method="post" th:action="'/admin/delete-customer/' + ${customer.id}" style="display: inline;">
+                        <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button type="submit" class="delete-button">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
